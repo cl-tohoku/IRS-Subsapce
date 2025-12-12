@@ -49,18 +49,10 @@ def get_model_and_tokenizer(model_name, device):
     """
 
     if model_name == "llama":
-        #model_id = "meta-llama/Meta-Llama-3-8B"
-        #model_id = "meta-llama/Llama-3.1-8B"
-        #model_id = "meta-llama/Llama-3.1-8B-Instruct"
         model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
     elif model_name == "qwen":
         model_id = "Qwen/Qwen3-8B"
-        tokenizer = AutoTokenizer.from_pretrained(model_id)
-    elif model_name == "mistral":
-        #model_id = "mistralai/Mistral-7B-v0.1"
-        model_id = "mistralai/Mistral-7B-Instruct-v0.2"
-        #model_id = "mistralai/Mistral-7B-Instruct-v0.1"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         
     tokenizer.pad_token_id = tokenizer.eos_token_id
@@ -766,8 +758,8 @@ if __name__ == "__main__":
     print("Model and Tokenizer loaded")
 
     data_tps = ["space", "create", "job", "relation", "city"]
-    sd_proj = "./data/data_table_specific_emb/"
-    sd_result = "./data/data_table_result_specific/"
+    sd_proj = "./data_emb/"
+    sd_result = "./result/steer/"
     all_result = {}
     lis = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     for data_tp in data_tps:
@@ -785,7 +777,7 @@ if __name__ == "__main__":
                 lst_steer_vs.append(steer_vs)
         steer_vs = mean_steer_vs(lst_steer_vs)
             
-        sd = "./data/data_table/"
+        sd = "./data/"
         sf_data = sd + f"{data_tp}_tts_all.jsonl"
 
         max_tar_acc = 0.0
