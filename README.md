@@ -1,4 +1,33 @@
 # IRS-Subsapce
-Thank you for being interested in our work.
-- The paper will be published on arXiv soon.
-- The software pakage, including the datasets and the Jupyter Notebook scripts for the main results, will also be released shortly.
+Codes and datasets for our paper **"Indexed Relational Schema: How Do LLMs Encode Discourse?"**
+
+### Setup
+Install dependencies (creating a virtual environment called "finetuning") :
+~~~~
+conda env create -f environment.yml
+conda activate finetuning
+~~~~
+
+
+### Activation Extraction
+Run the following script for extracting attribute activations for IRS subspace analysis.
+~~~
+python script/activation_extraction.py
+~~~
+
+### Sampling IRS Subspace
+Run the following script for sampling IRS subspace.
+~~~
+python script/activation_sampling.py
+~~~
+
+### Perturbing IRS Subspace
+Run the following script for perturbing IRS subspace.
+~~~
+python script/activation_perturbing.py
+~~~
+
+### Steering IRS Subspace
+~~~
+python script/activation_steering.py
+~~~
