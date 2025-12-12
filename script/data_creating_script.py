@@ -546,10 +546,15 @@ def data_generation(elements, sdout, nb_arg=3, nb_sample=1000, datai=0):
     fout_job.close()
     
 if __name__ == "__main__":
-    nb_sample = int(sys.argv[1])
-    datai = int(sys.argv[2])
+    parser = argparse.ArgumentParser(description="Args for data creation")
+    parser.add_argument("--nb_sample", type=int, default=1000, help="")
+    parser.add_argument("--data_id", type=int, default=1, help="")
+    args = parser.parse_args()
+    
+    nb_sample = arg.nb_sample
+    datai = arg.data_id
     elements = load_elements()
-    sdout = "/work01/daiqin/activation_patching/poe_project_copy/data/data_table/"
+    sdout = "./data/"
     data_generation(elements, sdout, nb_arg=3, nb_sample=nb_sample, datai=datai)
     
     
