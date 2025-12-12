@@ -109,7 +109,7 @@ def test_story(story, ents):
     return output
 
 
-def data_generation(elements, sdout, nb_arg=3, nb_sample=1000, datai=0):
+def data_generation(elements, sdout, nb_arg=3, nb_sample=1000,):
     name = elements["name"]
     random.shuffle(name)
     name_female = elements["name_female"]
@@ -512,11 +512,11 @@ def data_generation(elements, sdout, nb_arg=3, nb_sample=1000, datai=0):
         rows_job.append(row)
         ##
         
-    fout_space = open(sdout + f"space_tts_{datai}.jsonl", "w")
-    fout_city = open(sdout + f"city_tts_{datai}.jsonl", "w")
-    fout_create = open(sdout + f"create_tts_{datai}.jsonl", "w")
-    fout_relation = open(sdout + f"relation_tts_{datai}.jsonl", "w")
-    fout_job = open(sdout + f"job_tts_{datai}.jsonl", "w")
+    fout_space = open(sdout + f"space_tts_all.jsonl", "w")
+    fout_city = open(sdout + f"city_tts_all.jsonl", "w")
+    fout_create = open(sdout + f"create_tts_all.jsonl", "w")
+    fout_relation = open(sdout + f"relation_tts_all.jsonl", "w")
+    fout_job = open(sdout + f"job_tts_all.jsonl", "w")
 
     
     for row in rows_space:
@@ -548,13 +548,11 @@ def data_generation(elements, sdout, nb_arg=3, nb_sample=1000, datai=0):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Args for data creation")
     parser.add_argument("--nb_sample", type=int, default=1000, help="")
-    parser.add_argument("--data_id", type=int, default=1, help="")
     args = parser.parse_args()
     
     nb_sample = arg.nb_sample
-    datai = arg.data_id
     elements = load_elements()
     sdout = "./data/"
-    data_generation(elements, sdout, nb_arg=3, nb_sample=nb_sample, datai=datai)
+    data_generation(elements, sdout, nb_arg=3, nb_sample=nb_sample,)
     
     
