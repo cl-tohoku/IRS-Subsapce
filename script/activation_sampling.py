@@ -49,20 +49,11 @@ def get_model_and_tokenizer(model_name, device):
     """
 
     if model_name == "llama":
-        #model_id = "meta-llama/Meta-Llama-3-8B"
-        #model_id = "meta-llama/Llama-3.1-8B"
-        #model_id = "meta-llama/Llama-3.1-8B-Instruct"
         model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
     elif model_name == "qwen":
         model_id = "Qwen/Qwen3-8B"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
-    elif model_name == "mistral":
-        #model_id = "mistralai/Mistral-7B-v0.1"
-        model_id = "mistralai/Mistral-7B-Instruct-v0.2"
-        #model_id = "mistralai/Mistral-7B-Instruct-v0.1"
-        tokenizer = AutoTokenizer.from_pretrained(model_id)
-        
     tokenizer.pad_token_id = tokenizer.eos_token_id
     tokenizer.padding_side = "left"
     model = AutoModelForCausalLM.from_pretrained(
@@ -827,11 +818,10 @@ if __name__ == "__main__":
     print("Model and Tokenizer loaded")
 
     data_tps = ["job", "create", "space", "relation", "city"]
-    #data_tps = ["space", "city"]
-    sd_result = "./data/data_table_result_specific_context_grid/"
+    sd_result = "./result/sample/"
 
     for data_tp in data_tps:
-        sd = "./data/data_table/"
+        sd = "./data/"
         sf_data = sd + f"{data_tp}_tts_all.jsonl"
 
         if args.learn_proj_ma:
