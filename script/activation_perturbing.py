@@ -50,18 +50,10 @@ def get_model_and_tokenizer(model_name, device):
     """
 
     if model_name == "llama":
-        #model_id = "meta-llama/Meta-Llama-3-8B"
-        #model_id = "meta-llama/Llama-3.1-8B"
-        #model_id = "meta-llama/Llama-3.1-8B-Instruct"
         model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
     elif model_name == "qwen":
         model_id = "Qwen/Qwen3-8B"
-        tokenizer = AutoTokenizer.from_pretrained(model_id)
-    elif model_name == "mistral":
-        #model_id = "mistralai/Mistral-7B-v0.1"
-        model_id = "mistralai/Mistral-7B-Instruct-v0.2"
-        #model_id = "mistralai/Mistral-7B-Instruct-v0.1"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         
     tokenizer.pad_token_id = tokenizer.eos_token_id
@@ -73,143 +65,14 @@ def get_model_and_tokenizer(model_name, device):
     return model, tokenizer
 
 
-def gen_que_temp(data_tp="space", input_tp="story", atti=2):
-    prefix = "Based on the context like"
-    if input_tp == "table":
-        prefix = "Thus in the table"
-    ENT = "{ENT}"
-    if data_tp == "space":
-        if atti == 2:
-            if input_tp == "table":
-                que_temp = f" {prefix} the entity is banned in {ENT} and designed in"
-            else:
-                que_temp = f" {prefix} the entity that is banned in {ENT} and designed in"
-            att_tp = "atts2"
-        elif atti == 3:
-            if input_tp == "table":
-                que_temp = f" {prefix} the entity is banned in {ENT} and exported to"
-            else:
-                que_temp = f" {prefix} the entity that is banned in {ENT} and exported to"
-            att_tp = "atts3"
-        elif atti == 1:
-            if input_tp == "table":
-                que_temp = f" {prefix} the entity is banned in {ENT} and manufactured in"
-            else:
-                que_temp = f" {prefix} the entity that is banned in {ENT} and produced in"
-            att_tp = "atts1"
-    elif data_tp == "create":
-        if atti == 2:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's favorite object is the {ENT} and his bought object is the" 
-            else:
-                que_temp = f" {prefix} the person's favorite object is the {ENT} and he bought the" 
-            att_tp = "atts2"
-        elif atti == 3:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's favorite object is the {ENT} and sold object is the"
-            else:
-                que_temp = f" {prefix} the person's favorite object is the {ENT} and he sold the"
-            att_tp = "atts3"
-        elif atti == 1:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's fovarite object is {ENT} and his created object is"
-            else:
-                que_temp = f" {prefix} the person's fovarite object is the {ENT} and he created the"
-            att_tp = "atts1"
-    elif data_tp == "job":
-        if atti == 2:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's disliked job is {ENT} and his dream job is"
-            else:
-                que_temp = f" {prefix} the person dislikes being a {ENT} and dreams to be a"
-            att_tp = "atts2"
-        elif atti == 3:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's disliked job is {ENT} and his previous job is"
-            else:
-                que_temp = f" {prefix} the person dislikes being a {ENT} and his previous job was a"
-            att_tp = "atts3"
-        elif atti == 1:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's disliked job is {ENT} and his current job is"
-            else:
-                que_temp = f" {prefix} the person dislikes to be a {ENT} and now he is a"
-            att_tp = "atts1"
-    elif data_tp == "relation":
-        if atti == 2:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's boss is {ENT} and his child is"
-            else:
-                que_temp = f" {prefix} the person works under {ENT} and has a child named"
-            att_tp = "atts2"
-        elif atti == 3:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's boss is {ENT} and his teacher is"
-            else:
-                que_temp = f" {prefix} the person works under {ENT} and has a teacher named"
-            att_tp = "atts3"
-        elif atti == 1:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's boss is {ENT} and his spouse is"
-            else:
-                que_temp = f" {prefix} the person, who works under {ENT}, married to"
-            att_tp = "atts1"
-    elif data_tp == "city":
-        if atti == 2:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's disliked city is {ENT} and his Lived City is"
-            else:
-                que_temp = f" {prefix} the person dislikes {ENT} and he lives and resides in"
-            att_tp = "atts2"
-        elif atti == 3:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's disliked city is {ENT} and his loved city is"
-            else:
-                que_temp = f" {prefix} the person dislikes {ENT} but he likes"
-            att_tp = "atts3"
-        elif atti == 1:
-            if input_tp == "table":
-                que_temp = f" {prefix} the person's disliked city is {ENT} and his birthplace is"
-            else:
-                que_temp = f" {prefix} the person dislikes {ENT} and he is from"
-            att_tp = "atts1"
-    return que_temp, att_tp
-
-
-def gen_que_temp_ent(data_tp="space"):
-    prefix = "Thus in the table"
-    ATT = "{ATT}"
-    if data_tp == "space":
-        que_temp = f" {prefix} {ATT} designs the"
-        att_tp = "atts2"
-    elif data_tp == "create":
-        que_temp = f" {prefix} the {ATT} is bought by"
-        att_tp = "atts2"
-    elif data_tp == "job":
-        que_temp = f" {prefix} the job of being a {ATT} is dreamed by"
-        att_tp = "atts2"
-    elif data_tp == "relation":
-        que_temp = f" {prefix} {ATT} is a child of"
-        att_tp = "atts2"
-    elif data_tp == "city":
-        que_temp = f" {prefix} {ATT} is loved by"
-        att_tp = "atts4"
-    return que_temp, att_tp
-
-
 def load_tb_data(tokenizer, num_samples, data_file, rand=True,
-                 vari="p_cr", data_tp="space", input_tp="story", enti=1, atti=2):
-    """
-    vari in ["p_cr", "r_cr"]
-    """
+                 data_tp="space", input_tp="story", enti=1, atti=2):
     with open(data_file, encoding="utf-8") as f:
         data = [json.loads(line) for line in f]
 
     if rand:
         random.shuffle(data)
-
-    #que_temp, que_att_tp = gen_que_temp(data_tp=data_tp, atti=atti, input_tp=input_tp)
-    #que_temp, que_att_tp = gen_que_temp_ent(data_tp=data_tp)
+        
     que_temp = "Based on the context, given like {ENT1} to {ATT1} , {ENT2} to"
     if enti == 0:
         enti_cr1 = 2
@@ -245,11 +108,6 @@ def load_tb_data(tokenizer, num_samples, data_file, rand=True,
     prompts_temp = []
     prompts_table = []
     prompts_story = []
-
-    prompts_temp_cr = []
-    prompts_table_cr = []
-    prompts_story_cr = []
-    
     
     for i in range(num_samples):
         ent1 = data[i]["ents"][0]
@@ -307,28 +165,12 @@ def load_tb_data(tokenizer, num_samples, data_file, rand=True,
         labels2.append(tokenizer.encode(" %s"%data[i]["atts2"][enti])[-1])
         labels3.append(tokenizer.encode(" %s"%data[i]["atts3"][enti])[-1])
         
-        ctx = "Context: " + data[i][f"input_{vari}"]
-        ctx_t = "Context: " + data[i][f"t_input_{vari}"]
-        ctx_s = "Context: " + data[i][f"s_input_{vari}"]
-        ctx_t =	ctx_t.replace("||", "|\n|")
-        
-        prompts_table_cr.append(ctx_t + que)
-        prompts_temp_cr.append(ctx + que)
-        prompts_story_cr.append(ctx_s + que)
-        
     input_tokens_table = tokenizer(prompts_table, padding=True, return_tensors="pt")
     input_ids_table = input_tokens_table["input_ids"]
     input_tokens_temp = tokenizer(prompts_temp, padding=True, return_tensors="pt")
     input_ids_temp = input_tokens_temp["input_ids"]
     input_tokens_story = tokenizer(prompts_story, padding=True, return_tensors="pt")
     input_ids_story = input_tokens_story["input_ids"]
-
-    input_tokens_table_cr = tokenizer(prompts_table_cr, padding=True, return_tensors="pt")
-    input_ids_table_cr = input_tokens_table_cr["input_ids"]
-    input_tokens_temp_cr = tokenizer(prompts_temp_cr, padding=True, return_tensors="pt")
-    input_ids_temp_cr = input_tokens_temp_cr["input_ids"]
-    input_tokens_story_cr = tokenizer(prompts_story_cr, padding=True, return_tensors="pt")
-    input_ids_story_cr = input_tokens_story_cr["input_ids"]
     
     ents1 = torch.tensor(ents1)
     ents2 = torch.tensor(ents2)
@@ -346,6 +188,7 @@ def load_tb_data(tokenizer, num_samples, data_file, rand=True,
     atts4_1 = torch.tensor(atts4_1)
     atts4_2 = torch.tensor(atts4_2)
     atts4_3 = torch.tensor(atts4_3)
+                     
 
     labels = torch.tensor(labels)
     labels1 = torch.tensor(labels1)
@@ -358,8 +201,7 @@ def load_tb_data(tokenizer, num_samples, data_file, rand=True,
             atts2_1, atts2_2, atts2_3,
             atts3_1, atts3_2, atts3_3,
             atts4_1, atts4_2, atts4_3,
-            input_ids_table_cr, input_ids_temp_cr, input_ids_story_cr,
-            labels, labels1, labels2, labels3,)
+            labels, labels1, labels2,)
 
 
 def load_dataloader(
@@ -367,7 +209,6 @@ def load_dataloader(
         data_file: list,
         num_samples: int,
         batch_size: int,
-        vari: str="p_cr",
         data_tp: str="space",
         input_tp: str="story",
         enti: int=2,
@@ -377,7 +218,6 @@ def load_dataloader(
         tokenizer=tokenizer,
         num_samples=num_samples,
         data_file=data_file,
-        vari=vari,
         data_tp=data_tp,
         input_tp=input_tp,
         enti=enti,
@@ -408,14 +248,9 @@ def load_dataloader(
     atts4_2 = raw_data[16]
     atts4_3 = raw_data[17]
 
-    base_tokens_table_cr = raw_data[18]
-    base_tokens_temp_cr = raw_data[19]
-    base_tokens_story_cr = raw_data[20]
-
-    labels = raw_data[21]
-    labels1 = raw_data[22]
-    labels2 = raw_data[23]
-    labels3 = raw_data[24]
+    labels = raw_data[18]
+    labels1 = raw_data[19]
+    labels2 = raw_data[20]
 
     dataset = Dataset_ds.from_dict(
         {
@@ -437,13 +272,9 @@ def load_dataloader(
             "atts4_1": atts4_1,
             "atts4_2": atts4_2,
             "atts4_3": atts4_3,
-            "base_tokens_table_cr": base_tokens_table_cr,
-            "base_tokens_temp_cr": base_tokens_temp_cr,
-            "base_tokens_story_cr": base_tokens_story_cr,
             "labels": labels,
             "labels1": labels1,
             "labels2": labels2,
-            "labels3": labels3,
         }
     ).with_format("numpy")
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
@@ -778,7 +609,6 @@ def act_patching_main_resid_ap(
         batch_size: int=30,
         l1: int=10,
         l2: int=20,
-        vari: str="p_cr",
         input_tp: str="table",
         data_tp: str="space",
         enti: int=1,
@@ -801,7 +631,6 @@ def act_patching_main_resid_ap(
                 data_file=data_file,
                 num_samples=num_sample,
                 batch_size=batch_size,
-                vari=vari,
                 data_tp=data_tp,
                 input_tp=input_tp,
                 enti=enti,
@@ -903,7 +732,6 @@ if __name__ == "__main__":
     
     parser.add_argument("--llm_tp", type=str, default="llama", help="llama / qwen")
     parser.add_argument("--input_tp", type=str, default="story", help="table / temp / story")
-    parser.add_argument("--vari_tp", type=str, default="p_cr", help="p_cr / r_cr")
     parser.add_argument("--space_tp", type=str, default="i", help="i / r")
     parser.add_argument("--cr_tp", type=str, default="acr", help="acr / ecr")
     parser.add_argument("--enti", type=int, default=1, help="0 / 1 / 2")
@@ -927,21 +755,20 @@ if __name__ == "__main__":
 
     data_tps = ["space", "create", "job", "relation", "city"]
 
-    sd_result = "./data/data_table_result_fewshot/"
+    sd_result = "./result/perturb/"
     all_result = {}
     for data_tp in data_tps:
-        sd_proj = "./data/data_table_emb/"
+        sd_proj = "./data_emb/"
         sf_proj = sd_proj + f"{args.llm_tp}_l15_{args.space_tp}_{data_tp}_proj.npy"
         proj_ma = np.load(sf_proj)
         proj_ma = torch.tensor(proj_ma).to(device).to(torch.bfloat16)[:,:]
         
-        sd = "./data/data_table/"
+        sd = "./data/"
         sf_data = sd + f"{data_tp}_tts_all.jsonl"
 
         all_result[data_tp] = {}
         for beta in np.arange(0.1, 1.25, 0.05)[:]:
-            #for beta in [-2.5, -2.6, -2.7, -2.8, -2.9, -3.0]:
-            print(f"Patching {data_tp} format {args.input_tp} via {args.vari_tp} beta={beta}...")
+            print(f"Patching {data_tp} format {args.input_tp} beta={beta}...")
             result = act_patching_main_resid_ap(model=model,
                                                 tokenizer=tokenizer,
                                                 data_file=sf_data,
@@ -949,7 +776,6 @@ if __name__ == "__main__":
                                                 batch_size=args.batch_size,
                                                 l1 = args.l1,
                                                 l2 = args.l2,
-                                                vari=args.vari_tp,
                                                 input_tp=args.input_tp,
                                                 data_tp=data_tp,
                                                 enti=args.enti,
