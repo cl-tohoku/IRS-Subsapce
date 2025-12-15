@@ -2,26 +2,30 @@
 This repository contains the codes and datasets for our paper **"Indexed Relational Schema: How Do LLMs Encode Discourse?"**
 
 We analyze how LLMs encode discourse and identify a structured subspace, which we term the IRS subspace. Moreover, causal interventions on the IRS subspace can systematically alter LLM behavior.
-#### Overview of IRS Subspace based mechanism
- <img src="/xbe_overview.png" width="500">
+
+#### Visualization of IRS Subspace:
+ <img src="/irs_subspace_visualization_github.png" width="500">
+
+#### Overview of IRS Subspace based mechanism:
+ <img src="/mechanism.png" width="500">
 
 #### Method
 The implementation in this paper is based on [baukit](https://github.com/davidbau/baukit/tree/main)  and its application in the [paper](https://github.com/Nix07/finetuning/tree/main).
 
-### Setup
+## Setup
 Install dependencies (creating a virtual environment called "finetuning") :
 ~~~~
 conda env create -f environment.yml
 conda activate finetuning
 ~~~~
 
-### Activation Extraction
+## Activation Extraction
 Run the following script for extracting attribute activations for IRS subspace analysis.
 ~~~
 python script/activation_extraction.py
 ~~~
 
-### Sampling IRS Subspace
+## Sampling IRS Subspace
 Run the following script for sampling IRS subspace.
 #### Step1: sampling points from IRS subspace
 ~~~
@@ -32,19 +36,19 @@ python script/activation_sampling.py --llm_tp llama/qwen --learn_proj_ma
 python script/activation_sampling.py --llm_tp llama/qwen
 ~~~
 
-### Perturbing IRS Subspace
+## Perturbing IRS Subspace
 Run the following script for perturbing IRS subspace.
 ~~~
 python script/activation_perturbing.py --llm_tp llama/qwen --use_rand_proj_ma 0/1
 ~~~
 
-### Steering IRS Subspace
+## Steering IRS Subspace
 Run the following script for activation steering on IRS subspace.
 ~~~
 python script/activation_steering.py --llm_tp llama/qwen --steer_tp steer_a_1_2/steer_a_2_3/steer_a_3_4/steer_e_2_3
 ~~~
 
-### Result Visualization
+## Result Visualization
 ~~~
 notebook/jupyter_script_for_visualization.ipynb
 ~~~
