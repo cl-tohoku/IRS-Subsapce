@@ -25,6 +25,12 @@ conda env create -f environment.yml
 conda activate finetuning
 ~~~~
 
+## Dataset
+The main dataset used in this paper is available in `./data`, or you can create a new dataset by running the following script.
+~~~
+python script/data_creation.py --nb_sample 1000
+~~~
+
 ## Activation Extraction
 Run the following script for extracting attribute activations for IRS subspace analysis.
 ~~~
