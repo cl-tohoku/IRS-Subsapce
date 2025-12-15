@@ -23,26 +23,32 @@ python script/activation_extraction.py
 
 ### Sampling IRS Subspace
 Run the following script for sampling IRS subspace.
+#### Step1: sampling points from IRS subspace
 ~~~
-python script/activation_sampling.py
+python script/activation_sampling.py --llm_tp llama/qwen --learn_proj_ma
+~~~
+#### Step2: activation patching via the sampled points
+~~~
+python script/activation_sampling.py --llm_tp llama/qwen
 ~~~
 
 ### Perturbing IRS Subspace
 Run the following script for perturbing IRS subspace.
 ~~~
-python script/activation_perturbing.py
+python script/activation_perturbing.py --llm_tp llama/qwen --use_rand_proj_ma 0/1
 ~~~
 
 ### Steering IRS Subspace
 Run the following script for activation steering on IRS subspace.
 ~~~
-python script/activation_steering.py --steer_tp steer_a_1_2
-python script/activation_steering.py --steer_tp steer_a_2_3
-python script/activation_steering.py --steer_tp steer_a_3_4
+python script/activation_steering.py --llm_tp llama/qwen --steer_tp steer_a_1_2/steer_a_2_3/steer_a_3_4/steer_e_2_3
 ~~~
 
 ### Result Visualization
-please run the Jupyter Notebook script for:
+~~~
+notebook/jupyter_script_for_visualization.ipynb
+~~~
+please run the Jupyter Notebook script above for:
 1. IRS subspace visualization
 2. IRS subspace prediction via PLS from the activations of LLMs
 3. Analyzing the generality of IRS subspace across contexts
