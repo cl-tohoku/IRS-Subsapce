@@ -1,1 +1,1 @@
-This is the directory of storing embeddings.
+This is the directory to store embeddings.
