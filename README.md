@@ -52,7 +52,7 @@ python script/activation_steering.py --llm_tp llama/qwen --steer_tp steer_a_1_2/
 ~~~
 notebook/jupyter_script_for_visualization.ipynb
 ~~~
-please run the Jupyter Notebook script above for:
+Please run the Jupyter Notebook script above for:
 1. IRS subspace visualization
 2. IRS subspace prediction via PLS from the activations of LLMs
 3. Analyzing the generality of IRS subspace across contexts
