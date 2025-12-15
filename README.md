@@ -3,11 +3,17 @@ This repository contains the codes and datasets for our paper **"Indexed Relatio
 
 We analyze how LLMs encode discourse and identify a structured subspace, which we term the IRS subspace. Moreover, causal interventions on the IRS subspace can systematically alter LLM behavior.
 
-#### Visualization of IRS Subspace:
- <img src="/irs_subspace_visualization_github.png" width="500">
+#### Visualization of IRS Subspace: 
+~~~
+./irs_subspace_visualization.png
+~~~
+<!--  <img src="/irs_subspace_visualization.png" width="500"> -->
 
 #### Overview of IRS Subspace based mechanism:
- <img src="/mechanism.png" width="500">
+~~~
+./mechanism.png
+~~~
+ <!-- <img src="/mechanism.png" width="500"> -->
 
 #### Method
 The implementation in this paper is based on [baukit](https://github.com/davidbau/baukit/tree/main)  and its application in the [paper](https://github.com/Nix07/finetuning/tree/main).
