@@ -1,5 +1,12 @@
 # IRS-Subsapce
-Codes and datasets for our paper **"Indexed Relational Schema: How Do LLMs Encode Discourse?"**
+This repository contains the codes and datasets for our paper **"Indexed Relational Schema: How Do LLMs Encode Discourse?"**
+
+We analyze how LLMs encode discourse and identify a structured subspace, which we term the IRS subspace. Moreover, causal interventions on the IRS subspace can systematically alter LLM behavior.
+#### Overview of IRS Subspace based mechanism
+ <img src="/xbe_overview.png" width="500">
+
+#### Method
+The implementation in this paper is based on [baukit](https://github.com/davidbau/baukit/tree/main)  and its application in the [paper](https://github.com/Nix07/finetuning/tree/main).
 
 ### Setup
 Install dependencies (creating a virtual environment called "finetuning") :
@@ -7,7 +14,6 @@ Install dependencies (creating a virtual environment called "finetuning") :
 conda env create -f environment.yml
 conda activate finetuning
 ~~~~
-
 
 ### Activation Extraction
 Run the following script for extracting attribute activations for IRS subspace analysis.
@@ -28,6 +34,19 @@ python script/activation_perturbing.py
 ~~~
 
 ### Steering IRS Subspace
+Run the following script for activation steering on IRS subspace.
 ~~~
-python script/activation_steering.py
+python script/activation_steering.py --steer_tp steer_a_1_2
+python script/activation_steering.py --steer_tp steer_a_2_3
+python script/activation_steering.py --steer_tp steer_a_3_4
 ~~~
+
+### Result Visualization
+please run the Jupyter Notebook script for:
+1. IRS subspace visualization
+2. IRS subspace prediction via PLS from the activations of LLMs
+3. Analyzing the generality of IRS subspace across contexts
+4. Result visualization for Perturbing IRS subspace
+5. Result visualization for activation steering on IRS subspace
+6. Result visualization for IRS subspace sampling
+
