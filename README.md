@@ -60,7 +60,7 @@ Run the following script for activation steering on IRS subspace.
 python script/activation_steering.py --llm_tp llama/qwen --steer_tp steer_a_1_2/steer_a_2_3/steer_a_3_4/steer_e_2_3
 ~~~
 
-## Result Visualization
+## Results Visualization
 ~~~
 notebook/jupyter_script_for_visualization.ipynb
 ~~~
