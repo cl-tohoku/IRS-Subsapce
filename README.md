@@ -8,13 +8,13 @@ We analyze how LLMs encode discourse and identify a structured subspace, which w
 ./irs_subspace_visualization.png
 ~~~
 <!--  <img src="/irs_subspace_visualization.png" width="500"> -->
-<img src="/irs_subspace_visualization.png" width="500">
 
 #### Overview of IRS Subspace based mechanism:
 ~~~
 ./mechanism.png
 ~~~
- <!-- <img src="/mechanism.png" width="500"> -->
+<!-- <img src="/mechanism.png" width="500"> -->
+<img src="/mechanism.png" width="500">
 
 #### Method
 The implementation in this paper is based on [baukit](https://github.com/davidbau/baukit/tree/main)  and its application in the [paper](https://github.com/Nix07/finetuning/tree/main).
