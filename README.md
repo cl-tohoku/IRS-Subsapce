@@ -14,7 +14,6 @@ We analyze how LLMs encode discourse and identify a structured subspace, which w
 ./mechanism.png
 ~~~
 <!-- <img src="/mechanism.png" width="500"> -->
-<img src="/mechanism.png" width="500">
 
 #### Method
 The implementation in this paper is based on [baukit](https://github.com/davidbau/baukit/tree/main)  and its application in the [paper](https://github.com/Nix07/finetuning/tree/main).
