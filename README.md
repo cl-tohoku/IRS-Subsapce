@@ -8,6 +8,7 @@ We analyze how LLMs encode discourse and identify a structured subspace, which w
 ./irs_subspace_visualization.png
 ~~~
 <!--  <img src="/irs_subspace_visualization.png" width="500"> -->
+<img src="/irs_subspace_visualization.png" width="500">
 
 #### Overview of IRS Subspace based mechanism:
 ~~~
