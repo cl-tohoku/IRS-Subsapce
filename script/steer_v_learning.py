@@ -64,14 +64,11 @@ def get_model_and_tokenizer(model_name, device):
     return model, tokenizer
 
 
-def load_tb_data(tokenizer, num_samples, lst_data_file, rand=True,
+def load_tb_data(tokenizer, num_samples, data_file, rand=True,
                  data_tp="space", input_tp="story"):
     
-    data = []
-    for data_file in lst_data_file:
-        with open(data_file, encoding="utf-8") as f:
-            data_ = [json.loads(line) for line in f]
-            data.extend(data_)
+    with open(data_file, encoding="utf-8") as f:
+        data = [json.loads(line) for line in f]
             
     if rand:
         random.shuffle(data)
@@ -686,7 +683,7 @@ def pls_projection(lst_xs=[], base=0, n_components=1):
 def extract_steer_vector(
         tokenizer: AutoTokenizer,
         model: AutoModelForCausalLM,
-        list_datafile: list,
+        datafile: str,
         sfout: str,
         num_samples: int,
         layer: int=15,
@@ -696,7 +693,7 @@ def extract_steer_vector(
         pls_dim: int=30,
         ):
 
-    dataloader_tb = load_dataloader(tokenizer, list_datafile, num_samples, batch_size=batch_size)
+    dataloader_tb = load_dataloader(tokenizer, datafile, num_samples, batch_size=batch_size)
     (xs_ents1, xs_ents2, xs_ents3,
      xs_atts1_1, xs_atts1_2, xs_atts1_3,
      xs_atts2_1, xs_atts2_2, xs_atts2_3,
@@ -736,55 +733,7 @@ def extract_steer_vector(
         "steer_e_2_3": steer_e_2_3 @ proj_ma_e.T,
         }
     torch.save(data_out, sfout)
-    
-
-def extract_activation_for_visualization(
-        tokenizer: AutoTokenizer,
-        model: AutoModelForCausalLM,
-        list_datafile: list,
-        sfout: str,
-        num_samples: int,
-        layer: int=15,
-        input_tp: str="table",
-        batch_size: int=100,
-        ):
-    
-    dataloader_tb = load_dataloader(tokenizer, list_datafile, num_samples, batch_size=batch_size)
-    (xs_ents1, xs_ents2, xs_ents3,
-     xs_atts1_1, xs_atts1_2, xs_atts1_3,
-     xs_atts2_1, xs_atts2_2, xs_atts2_3,
-     xs_atts3_1, xs_atts3_2, xs_atts3_3,
-     xs_atts4_1, xs_atts4_2, xs_atts4_3,
-     labels,
-     xs_a1, xs_a2, xs_a3, xs_a4,
-     xs_e2, xs_e3,) = get_x_y(model, dataloader_tb, layer, input_tp,)
-
-    data_out = {
-        "ent1": xs_ents1,
-        "ent2": xs_ents2,
-        "ent3": xs_ents3,
-        "att1_1": xs_atts1_1,
-        "att1_2": xs_atts1_2,
-        "att1_3": xs_atts1_3,
-        "att2_1": xs_atts2_1,
-        "att2_2": xs_atts2_2,
-        "att2_3": xs_atts2_3,
-        "att3_1": xs_atts3_1,
-        "att3_2": xs_atts3_2,
-        "att3_3": xs_atts3_3,
-        "att4_1": xs_atts4_1,
-        "att4_2": xs_atts4_2,
-        "att4_3": xs_atts4_3,
-        "xs_a1": xs_a1,
-        "xs_a2": xs_a2,
-        "xs_a3": xs_a3,
-        "xs_a4": xs_a4,
-        "xs_e2": xs_e2,
-        "xs_e3": xs_e3,
-        }
-
-    torch.save(data_out, sfout)
-
+        
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Args for activation patching")
@@ -809,9 +758,7 @@ if __name__ == "__main__":
     for data_tp in ["city", "create", "job", "relation", "space"][:]:
         for input_tp in ["story", "temp", "table"][1:]:
             print(f"Processing {data_tp} dataset {input_tp} input ...")
-            list_datafile = [sd_in + f"{data_tp}_tts_0.jsonl", sd_in + f"{data_tp}_tts_1.jsonl", sd_in + f"{data_tp}_tts_2.jsonl",  sd_in + f"{data_tp}_tts_4.jsonl",
-                             sd_in + f"{data_tp}_tts_5.jsonl", sd_in + f"{data_tp}_tts_6.jsonl", sd_in + f"{data_tp}_tts_7.jsonl",  sd_in + f"{data_tp}_tts_8.jsonl",
-                             sd_in + f"{data_tp}_tts_9.jsonl", ]
+            datafile = sd_in + f"{data_tp}_tts_all.jsonl"
             
             layers1 = [12, 13, 14, 15, 16,]
             layers2 = [11, 17, 18, 19, 20]
@@ -821,7 +768,7 @@ if __name__ == "__main__":
                 extract_steer_vector(
                     tokenizer,
                     model,
-                    list_datafile,
+                    datafile,
                     sfout,
                     num_samples,
                     layer=int(layer),
