@@ -60,7 +60,7 @@ Run the following script for activation steering on IRS subspace.
 ~~~
 python script/steer_v_learning.py --llm_tp llama/qwen
 ~~~
-#### Step2: patching activation via the learned steering vector
+#### Step2: activation patching via the learned steering vector
 ~~~
 python script/activation_steering.py --llm_tp llama/qwen --steer_tp steer_a_1_2/steer_a_2_3/steer_a_3_4/steer_e_2_3
 ~~~
