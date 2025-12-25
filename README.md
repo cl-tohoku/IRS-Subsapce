@@ -56,6 +56,11 @@ python script/activation_perturbing.py --llm_tp llama/qwen --use_rand_proj_ma 0/
 
 ## Steering IRS Subspace
 Run the following script for activation steering on IRS subspace.
+#### Step1: learning steering vector
+~~~
+python script/steer_v_learning.py --llm_tp llama/qwen
+~~~
+#### Step2: patching activation via the learned steering vector
 ~~~
 python script/activation_steering.py --llm_tp llama/qwen --steer_tp steer_a_1_2/steer_a_2_3/steer_a_3_4/steer_e_2_3
 ~~~
