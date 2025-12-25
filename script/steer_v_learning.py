@@ -49,18 +49,10 @@ def get_model_and_tokenizer(model_name, device):
     """
 
     if model_name == "llama":
-        #model_id = "meta-llama/Meta-Llama-3-8B"
-        #model_id = "meta-llama/Llama-3.1-8B"
-        #model_id = "meta-llama/Llama-3.1-8B-Instruct"
         model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
     elif model_name == "qwen":
         model_id = "Qwen/Qwen3-8B"
-        tokenizer = AutoTokenizer.from_pretrained(model_id)
-    elif model_name == "mistral":
-        #model_id = "mistralai/Mistral-7B-v0.1"
-        model_id = "mistralai/Mistral-7B-Instruct-v0.2"
-        #model_id = "mistralai/Mistral-7B-Instruct-v0.1"
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         
     tokenizer.pad_token_id = tokenizer.eos_token_id
@@ -808,8 +800,8 @@ if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model, tokenizer = get_model_and_tokenizer(llm_tp, device)
     print("Model and Tokenizer loaded")
-    sd_in = "./data/data_table/"
-    sd_out = "./data/data_table_specific_emb/"
+    sd_in = "./data/"
+    sd_out = "./data_emb/"
 
     num_samples = args.num_samples
     batch_size = args.batch_size
